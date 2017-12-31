@@ -1,4 +1,4 @@
-package `in`.yapp.recyclerviewexample
+package `in`.yapp.recyclerviewexample.models
 
 /**
  * Created by elstin on 12/30/2017.

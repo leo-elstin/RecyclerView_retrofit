@@ -1,5 +1,7 @@
-package `in`.yapp.recyclerviewexample
+package `in`.yapp.recyclerviewexample.adapters
 
+import `in`.yapp.recyclerviewexample.R
+import `in`.yapp.recyclerviewexample.models.User
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
