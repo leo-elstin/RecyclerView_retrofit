@@ -2,11 +2,11 @@ package `in`.yapp.recyclerviewexample
 
 import `in`.yapp.recyclerviewexample.adapters.Adapter
 import `in`.yapp.recyclerviewexample.models.User
+import `in`.yapp.recyclerviewexample.models.UserList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import com.azinova.phptesting.model.transData
 import com.azinova.phptesting.utils.getApiService
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = Adapter(userList,this)
 
-        addDummyData()
+       // addDummyData()
 
         val json = JsonObject()
         json.addProperty("","")
@@ -55,15 +55,16 @@ class MainActivity : AppCompatActivity() {
     private fun dataEngine(json: JsonObject) {
 
 
-        getApiService().transllate(json).enqueue(object : Callback<transData> {
-            override fun onResponse(call: Call<transData>, response: Response<transData>) {
+        getApiService().transllate(json).enqueue(object : Callback<UserList> {
+            override fun onResponse(call: Call<UserList>, response: Response<UserList>) {
 
                 Log.e("Response", GsonBuilder().setPrettyPrinting().create().toJson(response.body()))
 
-
+                userList.addAll(response.body()!!.userList)
+                
             }
 
-            override fun onFailure(call: Call<transData>, t: Throwable) {
+            override fun onFailure(call: Call<UserList>, t: Throwable) {
 
             }
         })
