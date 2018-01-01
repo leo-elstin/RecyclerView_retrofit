@@ -1,10 +1,20 @@
 package `in`.yapp.recyclerviewexample
 
+import `in`.yapp.recyclerviewexample.adapters.Adapter
+import `in`.yapp.recyclerviewexample.models.User
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import com.azinova.phptesting.model.transData
+import com.azinova.phptesting.utils.getApiService
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +30,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = Adapter(userList,this)
 
         addDummyData()
+
+        val json = JsonObject()
+        json.addProperty("","")
+
     }
 
     private fun addDummyData() {
@@ -36,6 +50,23 @@ class MainActivity : AppCompatActivity() {
         userList.add(user4)
 
         recyclerView.adapter.notifyDataSetChanged()
+    }
+
+    private fun dataEngine(json: JsonObject) {
+
+
+        getApiService().transllate(json).enqueue(object : Callback<transData> {
+            override fun onResponse(call: Call<transData>, response: Response<transData>) {
+
+                Log.e("Response", GsonBuilder().setPrettyPrinting().create().toJson(response.body()))
+
+
+            }
+
+            override fun onFailure(call: Call<transData>, t: Throwable) {
+
+            }
+        })
     }
 
 }
